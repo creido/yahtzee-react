@@ -1,0 +1,117 @@
+html {
+  font-size: 62.5%; /* 10px */
+}
+
+body {
+  background-color: #5cbf02;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+main {
+  margin: 3em auto;
+  max-width: 400px;
+  padding-top: 35px;
+  width: 100%
+}
+
+.Todo-List {
+  text-align: left;
+}
+
+.Todo-List ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Todo-List li {
+
+}
+
+.message {
+  background-color: #61dafb;
+  border: 1px solid #61dafb;
+  color: #fff;
+  left: 50%;
+  margin-left: -100px;
+  position: absolute;
+  text-align: center;
+  top: 200px;
+  width: 200px;
+}
+
+.delete-item {
+  visibility: hidden;
+}
+
+.delete-item button {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+li:hover .delete-item {
+  visibility: visible;
+}
+
+a {
+  display: inline-block;
+  padding: 5px;
+}
+
+.dice {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0 0 5rem;
+  padding: 0;
+}
+
+.die {
+  background: #fff;
+  border-radius: 0.5rem;
+  color: #000;
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+  width: 5rem;
+}
+
+.die.yay {
+  filter: contrast(2) brightness(.8);
+}
