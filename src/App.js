@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 // import logo from './logo.svg';
-// import Message from './components/Message';
+import Message from './components/Message';
 // import TodoForm from './components/TodoForm';
 // import TodoList from './components/TodoList';
 // import Footer from './components/Footer';
@@ -19,9 +19,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>*/}
         <main>
+          <Message />
           {/*<Router>
             <div className="Todo-App">
-              <Message />
               <TodoForm />
               <Route path='/:filter?' render={({match}) => (
                   <TodoList filter={match.params.filter} />

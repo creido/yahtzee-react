@@ -1,4 +1,4 @@
-// import {showMessage} from './messages'
+import {showMessage} from './messages'
 
 const initialState = [
   {id: 1, isSelected: false, value: 6},
@@ -31,6 +31,7 @@ export const rollDice = id => {
 export const toggleDie = id => {
   return (dispatch) => {
     dispatch(actionToggleDie(id));
+    // dispatch(showMessage(`Toggle die ${id}`))
   }
 };
 
