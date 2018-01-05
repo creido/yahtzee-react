@@ -1,4 +1,5 @@
 import {showMessage} from './messages'
+import {setRoll} from './players'
 
 const initialState = [
   {id: 1, isSelected: false, value: 6},
@@ -25,6 +26,7 @@ const actionRollDice = () => ({type: ROLL_DICE});
 export const rollDice = id => {
   return (dispatch) => {
     dispatch(actionRollDice(id));
+    dispatch(setRoll());
   }
 };
 
