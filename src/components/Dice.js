@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {rollDice, toggleDie} from '../reducers/dice';
 
-const mapStateToProps = (state) => ({dice: state.dice});
+const mapStateToProps = state => ({dice: state.dice});
 
 // const mapDispatchToProps = (dispatch) => ({
 //   onDieClick(id) {
@@ -14,7 +14,6 @@ const mapStateToProps = (state) => ({dice: state.dice});
 // });
 
 const Die = ({id, isSelected, value, onDieClick}) => {
-// const Die = (props) => {
 
   // if (!value) {
   //   return (null);
@@ -28,15 +27,17 @@ const Die = ({id, isSelected, value, onDieClick}) => {
   </li>
 }
 
-const Dice = ({dice, onDieClick}) => (
+const Dice = ({dice, onDieClick, onRollClick}) => (
   <div>
     <ul className='dice'>
       {dice.map(die =>
-        <Die key={die.id}
+        <Die
+          key={die.id}
           onDieClick={onDieClick}
-          {...die} />)}
+          {...die} />
+      )}
     </ul>
-    <button onClick={() => rollDice()}>Roll the dice</button>
+    <button onClick={() => onRollClick()}>Roll the dice</button>
   </div>
 )
 
@@ -52,5 +53,8 @@ const Dice = ({dice, onDieClick}) => (
 // export default Dice
 export default connect(
   mapStateToProps,
-  {onDieClick: toggleDie}
+  {
+    onRollClick: rollDice,
+    onDieClick: toggleDie
+  }
 )(Dice);

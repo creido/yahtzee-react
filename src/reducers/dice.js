@@ -8,30 +8,30 @@ const initialState = [
   {id: 5, isSelected: false, value: 6},
 ];
 
-const selectedDice = [];
-
 const TOGGLE_DIE = 'TOGGLE_DIE';
+const ROLL_DICE = 'ROLL_DICE';
 
 /**
  * Get result of a die roll
  *
  * @return {number} Number between 1 and 6
  */
-const rollDie = () => {
-  return Math.ceil(Math.random() * 6);
-}
+const rollDie = () => Math.ceil(Math.random() * 6);
 
-export const rollDice = () => {
-  console.log('roll dice', rollDie());
+const actionToggleDie = id => ({type: TOGGLE_DIE, payload: id});
+
+const actionRollDice = () => ({type: ROLL_DICE});
+
+export const rollDice = id => {
   return (dispatch) => {
-    // dispatch(showMessage('Rolling dice'))
-    // destroyTodo(id)
-    //   .then(() => dispatch(removeTodo(id)))
+    dispatch(actionRollDice(id));
   }
-}
+};
 
-export const toggleDie = (id) => {
-  return {type: TOGGLE_DIE, payload: id}
+export const toggleDie = id => {
+  return (dispatch) => {
+    dispatch(actionToggleDie(id));
+  }
 };
 
 
@@ -48,6 +48,18 @@ export default (state = initialState, action) => {
         return {
           ...die,
           isSelected: !die.isSelected
+        };
+      });
+
+    case ROLL_DICE:
+      return state.map(die => {
+        if (die.isSelected) {
+          return die;
+        }
+
+        return {
+          ...die,
+          value: rollDie()
         };
       });
 
