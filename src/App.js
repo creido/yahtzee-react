@@ -9,6 +9,7 @@ import './App.css';
 // import Footer from './components/Footer';
 import Dice from './components/Dice';
 import Message from './components/Message';
+import Players from './components/Players';
 import Roll from './components/Roll';
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
           </Router>*/}
           <Dice />
           <Roll />
+          <Players />
         </main>
       </div>
     );
