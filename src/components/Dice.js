@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {rollDice, toggleDie} from '../reducers/dice';
+import {toggleDie} from '../reducers/dice';
 
 const mapStateToProps = state => ({dice: state.dice});
 
@@ -14,20 +14,15 @@ const mapStateToProps = state => ({dice: state.dice});
 // });
 
 const Die = ({id, isSelected, value, onDieClick}) => {
-
-  // if (!value) {
-  //   return (null);
-  // }
-
-  return <li
+  return value !== null && <li
     id={id}
     onClick={() => onDieClick(id)}
     className={`die${isSelected ? ' yay' : ' nay'}`}>
       {value}
   </li>
-}
+};
 
-const Dice = ({dice, onDieClick, onRollClick}) => (
+const Dice = ({dice, onDieClick}) => (
   <div>
     <ul className='dice'>
       {dice.map(die =>
@@ -37,9 +32,8 @@ const Dice = ({dice, onDieClick, onRollClick}) => (
           {...die} />
       )}
     </ul>
-    <button onClick={() => onRollClick()}>Roll the dice</button>
   </div>
-)
+);
 
 // Die.propTypes = {
 //   props: PropTypes.arrayOf(PropTypes.shape({
@@ -54,7 +48,6 @@ const Dice = ({dice, onDieClick, onRollClick}) => (
 export default connect(
   mapStateToProps,
   {
-    onRollClick: rollDice,
     onDieClick: toggleDie
   }
 )(Dice);

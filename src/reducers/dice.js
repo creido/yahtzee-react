@@ -2,11 +2,11 @@ import {showMessage} from './messages'
 import {setRoll} from './players'
 
 const initialState = [
-  {id: 1, isSelected: false, value: 6},
-  {id: 2, isSelected: false, value: 6},
-  {id: 3, isSelected: false, value: 6},
-  {id: 4, isSelected: false, value: 6},
-  {id: 5, isSelected: false, value: 6},
+  {id: 1, isSelected: false, value: null},
+  {id: 2, isSelected: false, value: null},
+  {id: 3, isSelected: false, value: null},
+  {id: 4, isSelected: false, value: null},
+  {id: 5, isSelected: false, value: null},
 ];
 
 const TOGGLE_DIE = 'TOGGLE_DIE';
