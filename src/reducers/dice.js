@@ -1,5 +1,5 @@
 import {showMessage} from './messages'
-import {setRoll} from './players'
+import {setRoll} from './gamePlay'
 
 const initialState = [
   {id: 1, isSelected: false, value: null},

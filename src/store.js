@@ -4,13 +4,13 @@ import thunk from 'redux-thunk'
 
 import diceReducer from './reducers/dice';
 import messageReducer from './reducers/messages';
-import playerReducer from './reducers/players';
+import gamePlayReducer from './reducers/gamePlay';
 // import todoReducer from './reducers/todo';
 
 const reducer = combineReducers({
   dice: diceReducer,
+  gamePlay: gamePlayReducer,
   message: messageReducer,
-  player: playerReducer,
   // todo: todoReducer,
 })
 
