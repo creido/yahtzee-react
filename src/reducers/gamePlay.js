@@ -13,18 +13,34 @@ const initialState = {
 
 const MAX_ROLLS = 3;
 
-// export const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
+export const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
 export const SET_ROLL = 'SET_ROLL';
 
 export const setRoll = () => ({type: SET_ROLL});
+export const setNextPlayer = (id) => ({type: SET_NEXT_PLAYER});
 
 export default (state = initialState, action) => {
 
   switch (action.type) {
     case SET_NEXT_PLAYER:
-      console.log('next player');
+      // TODO: move this logic into separate function
+      const nextPlayer = state.activePlayer === state.players.length
+        ? 1
+        : state.activePlayer + 1;
+
+      return {
+          ...state,
+          activePlayer: nextPlayer,
+          roll: 0,
+          players: state.players.map(p => {
+            return p.id === nextPlayer
+              ? {...p, isActive: true}
+              : {...p, isActive: false}
+            })
+        };
 
     case SET_ROLL:
+      // TODO: move this logic into separate function
       const newRoll = state.roll + 1;
 
       if (newRoll === MAX_ROLLS) {
