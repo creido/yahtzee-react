@@ -115,3 +115,7 @@ a {
 .die.yay {
   filter: contrast(2) brightness(.8);
 }
+
+.player.is-active {
+  color: #ff0;
+}

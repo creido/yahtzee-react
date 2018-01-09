@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import './App.css';
 
 // import logo from './logo.svg';
-import Message from './components/Message';
 // import TodoForm from './components/TodoForm';
 // import TodoList from './components/TodoList';
 // import Footer from './components/Footer';
 import Dice from './components/Dice';
+import Message from './components/Message';
+import Roll from './components/Roll';
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
             </div>
           </Router>*/}
           <Dice />
+          <Roll />
         </main>
       </div>
     );
