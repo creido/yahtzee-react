@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 
 import {rollDice} from '../reducers/dice';
 
-const mapStateToProps = state => ({roll: state.gamePlay.roll});
+const mapStateToProps = state => ({canRoll: state.gamePlay.canRoll});
 
-const Roll = ({roll, onRollClick}) => {
-  return <button disabled={roll >= 3} onClick={() => onRollClick()}>Roll the dice</button>
+const Roll = ({canRoll, onRollClick}) => {
+  return <button disabled={!canRoll} onClick={() => onRollClick()}>Roll the dice</button>
 }
 
 export default connect(

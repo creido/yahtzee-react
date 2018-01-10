@@ -9,6 +9,7 @@ const initialState = {
   ],
   activePlayer: 1,
   roll: 0,
+  canRoll: true,
 };
 
 const MAX_ROLLS = 3;
@@ -32,6 +33,7 @@ export default (state = initialState, action) => {
           ...state,
           activePlayer: nextPlayer,
           roll: 0,
+          canRoll: true,
           players: state.players.map(p => {
             return p.id === nextPlayer
               ? {...p, isActive: true}
@@ -42,14 +44,11 @@ export default (state = initialState, action) => {
     case SET_ROLL:
       // TODO: move this logic into separate function
       const newRoll = state.roll + 1;
-
-      if (newRoll === MAX_ROLLS) {
-        console.log(`end of turn for ${state.activePlayer}`)
-        // reset
-      }
+      const canRoll = newRoll < MAX_ROLLS ? true : false;
 
       return {
           ...state,
+          canRoll: canRoll,
           roll: newRoll
         };
 

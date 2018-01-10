@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 
 import {setNextPlayer} from '../reducers/gamePlay';
 
-const mapStateToProps = state => ({roll: state.gamePlay.roll});
+const mapStateToProps = state => ({canRoll: state.gamePlay.canRoll});
 
-const Reset = ({roll, onResetClick}) => {
-  return <button disabled={roll < 3} onClick={() => onResetClick()}>Continue</button>
+const Reset = ({canRoll, onResetClick}) => {
+  return <button disabled={canRoll} onClick={() => onResetClick()}>Continue</button>
 }
 
 export default connect(
