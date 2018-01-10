@@ -9,8 +9,9 @@ const initialState = [
   {id: 5, isSelected: false, value: null},
 ];
 
-const TOGGLE_DIE = 'TOGGLE_DIE';
+const RESET_DICE = 'RESET_DICE';
 const ROLL_DICE = 'ROLL_DICE';
+const TOGGLE_DIE = 'TOGGLE_DIE';
 
 /**
  * Get result of a die roll
@@ -22,6 +23,8 @@ const rollDie = () => Math.ceil(Math.random() * 6);
 const actionToggleDie = id => ({type: TOGGLE_DIE, payload: id});
 
 const actionRollDice = () => ({type: ROLL_DICE});
+
+export const resetDice = () => ({type: RESET_DICE});
 
 export const rollDice = id => {
   return (dispatch) => {
@@ -41,18 +44,8 @@ export const toggleDie = id => {
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case TOGGLE_DIE:
-
-      return state.map(die => {
-        if (die.id !== action.payload) {
-          return die;
-        }
-
-        return {
-          ...die,
-          isSelected: !die.isSelected
-        };
-      });
+    case RESET_DICE:
+      return [...initialState];
 
     case ROLL_DICE:
       return state.map(die => {
@@ -63,6 +56,19 @@ export default (state = initialState, action) => {
         return {
           ...die,
           value: rollDie()
+        };
+      });
+
+    case TOGGLE_DIE:
+
+      return state.map(die => {
+        if (die.id !== action.payload) {
+          return die;
+        }
+
+        return {
+          ...die,
+          isSelected: !die.isSelected
         };
       });
 

@@ -1,4 +1,5 @@
-import {showMessage} from './messages'
+import {resetDice} from './dice';
+import {showMessage} from './messages';
 
 const initialState = {
   players: [
@@ -17,8 +18,15 @@ const MAX_ROLLS = 3;
 export const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
 export const SET_ROLL = 'SET_ROLL';
 
+const actionSetNextPlayer = id => ({type: SET_NEXT_PLAYER});
+
 export const setRoll = () => ({type: SET_ROLL});
-export const setNextPlayer = (id) => ({type: SET_NEXT_PLAYER});
+export const setNextPlayer = id => {
+  return dispatch => {
+    dispatch(actionSetNextPlayer(id));
+    dispatch(resetDice());
+  }
+};
 
 export default (state = initialState, action) => {
 
