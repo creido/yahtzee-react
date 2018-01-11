@@ -7,6 +7,7 @@ import Message from './components/Message';
 import Players from './components/Players';
 import Reset from './components/Reset';
 import Roll from './components/Roll';
+import ScoreSheet from './components/ScoreSheet';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Reset />
           <Roll />
           <Players />
+          <ScoreSheet />
         </main>
       </div>
     );
