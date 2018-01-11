@@ -16,8 +16,10 @@ class App extends Component {
         <main>
           <Message />
           <Dice />
-          <Reset />
-          <Roll />
+          <div className="controls">
+            <Reset />
+            <Roll />
+          </div>
           <Players />
           <ScoreSheet />
         </main>

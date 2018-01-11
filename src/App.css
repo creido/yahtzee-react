@@ -8,6 +8,11 @@ body {
   font-size: 1.4rem;
 }
 
+button {
+  margin: 0 1em;
+  padding: 1em 2em;
+}
+
 .App {
   text-align: center;
 }
@@ -116,6 +121,28 @@ a {
   filter: contrast(2) brightness(.8);
 }
 
+.controls {
+  bottom: 30px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.players {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
 .player.is-active {
   color: #ff0;
+}
+
+.score-sheet {
+  background: #f5f5f5;
+  color: #666;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
 }

@@ -8,10 +8,10 @@ const Player = ({id, isActive, name}) => {
     id={id} className={`player${isActive ? ' is-active': ''}`}>
       {name}
   </li>
-}
+};
 
 const Players = ({players}) => {
-  return <div>
+  return <div className="players">
       <ul>
         {players.map(player =>
           <Player
@@ -20,9 +20,8 @@ const Players = ({players}) => {
         )}
       </ul>
   </div>;
-}
+};
 
 export default connect(
-  mapStateToProps,
-  {}
+  mapStateToProps
 )(Players);
