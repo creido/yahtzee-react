@@ -15,7 +15,6 @@ const mapStateToProps = state => ({dice: state.dice});
 
 const Die = ({id, isSelected, value, onDieClick}) => {
   return value !== null && <li
-    id={id}
     onClick={() => onDieClick(id)}
     className={`die${isSelected ? ' yay' : ' nay'}`}>
       {value}
