@@ -1,15 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {addScore} from '../reducers/scores';
+
 const mapStateToProps = state => ({scores: state.scores});
 
 const Score = ({value}) => (<td>{value}</td>);
 
-const ScoreRow = ({name, description, score}) => {
-  return <tr>
+const ScoreRow = ({name, description, score, onScoreRowClick}) => {
+  return <tr onClick={() => onScoreRowClick(name)}>
     <th scope="row">{name}</th>
     {score.map((value, i) =>
-      <Score key="i" value={value} />
+      <Score key={i} value={value} />
     )}
   </tr>;
 };
@@ -21,27 +23,17 @@ const ScoreRowTotal = ({name, total}) => {
 
   return <tr>
     <th scope="row">Total{totalHeading}</th>
-    {total.map((value, i) =>
-      <Score key="i" value={value} />
+    {total && total.map((value, i) =>
+      <Score key={i} value={value} />
     )}
   </tr>;
 };
 
-const ScoreGroup = ({name, items, total, bonus}) => {
-  return <tbody>
-    {items.map((row, i) =>
-      <ScoreRow key={i} {...row} />
-    )}
-    {<ScoreRowTotal name={name} total={total} />}
-
-  </tbody>;
-};
-
-const ScoreSheet = ({scores}) => {
+const ScoreSheet = ({scores, onScoreRowClick}) => {
   return <table className="score-sheet">
     <thead>
       <tr>
-        <th scope="col"></th>
+        <th></th>
         <th scope="col">Player 1</th>
         <th scope="col">Player 2</th>
         <th scope="col">Player 3</th>
@@ -49,8 +41,21 @@ const ScoreSheet = ({scores}) => {
       </tr>
     </thead>
 
-    {scores.groups.map((group, i) => <ScoreGroup key={i} {...group} />)}
-    <tfoot>{<ScoreRowTotal {...scores} />}</tfoot>
+
+    <tbody>
+      {scores.items.map((item, i) =>
+        <ScoreRow
+          key={i}
+          onScoreRowClick={onScoreRowClick}
+          {...item} />
+      )}
+    </tbody>
+
+    <tfoot>
+      {
+        <ScoreRowTotal {...scores} />
+      }
+    </tfoot>
 
   </table>
 };
@@ -82,5 +87,8 @@ const ScoreSheet = ({scores}) => {
  */
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {
+    onScoreRowClick: addScore
+  }
 )(ScoreSheet);
