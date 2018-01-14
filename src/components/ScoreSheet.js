@@ -86,11 +86,14 @@ const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
  * sixes         |    X     |    X     |    X     |    X     |
  *
  * total         |    X     |    X     |    X     |    X     |
- * bonus         |    X     |    X     |    X     |    X     |
+ * bonus (+35)   |    X     |    X     |    X     |    X     |
  *
  * -----------------------------------------------------------
  * 3 of a kind   |    X     |    X     |    X     |    X     |
  * 4 of a kind   |    X     |    X     |    X     |    X     |
+ * low straight  |    X     |    X     |    X     |    X     |
+ * high straight |    X     |    X     |    X     |    X     |
+ * full house    |    X     |    X     |    X     |    X     |
  * yahtzee       |    X     |    X     |    X     |    X     |
  * yahtzee count |    X     |    X     |    X     |    X     |
  * chance        |    X     |    X     |    X     |    X     |
