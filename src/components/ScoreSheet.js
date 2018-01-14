@@ -5,11 +5,12 @@ import {addScore} from '../reducers/scores';
 
 const mapStateToProps = state => ({scores: state.scores});
 
-const Score = ({value}) => (<td>{value}</td>);
+const Score = ({value}) => (<td className="score-item">{value}</td>);
 
 const ScoreRow = ({name, description, score, onScoreRowClick}) => {
-  return <tr onClick={() => onScoreRowClick(name)}>
-    <th scope="row">{name}</th>
+  return <tr
+    className="score-row" onClick={() => onScoreRowClick(name)}>
+    <th className="score-heading-row" scope="row">{name}</th>
     {score.map((value, i) =>
       <Score key={i} value={value} />
     )}
@@ -22,7 +23,7 @@ const ScoreRowTotal = ({name, total}) => {
     : '';
 
   return <tr>
-    <th scope="row">Total{totalHeading}</th>
+    <th className="score-heading-row" scope="row">Total{totalHeading}</th>
     {total && total.map((value, i) =>
       <Score key={i} value={value} />
     )}
@@ -33,11 +34,11 @@ const ScoreSheet = ({scores, onScoreRowClick}) => {
   return <table className="score-sheet">
     <thead>
       <tr>
-        <th></th>
-        <th scope="col">Player 1</th>
-        <th scope="col">Player 2</th>
-        <th scope="col">Player 3</th>
-        <th scope="col">Player 4</th>
+        <th className="score-heading-col"></th>
+        <th className="score-heading-col" scope="col">Player 1</th>
+        <th className="score-heading-col" scope="col">Player 2</th>
+        <th className="score-heading-col" scope="col">Player 3</th>
+        <th className="score-heading-col" scope="col">Player 4</th>
       </tr>
     </thead>
 

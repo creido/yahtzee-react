@@ -13,6 +13,20 @@ button {
   padding: 1em 2em;
 }
 
+table {
+  border: none;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: none;
+}
+
+th {
+  font-weight: 700;
+}
+
 .App {
   text-align: center;
 }
@@ -50,20 +64,6 @@ main {
   width: 100%
 }
 
-.Todo-List {
-  text-align: left;
-}
-
-.Todo-List ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.Todo-List li {
-
-}
-
 .message {
   background-color: #61dafb;
   border: 1px solid #61dafb;
@@ -74,28 +74,6 @@ main {
   text-align: center;
   top: 30px;
   width: 200px;
-}
-
-.delete-item {
-  visibility: hidden;
-}
-
-.delete-item button {
-  background: none;
-  border: none;
-  color: red;
-  font-size: 1em;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-li:hover .delete-item {
-  visibility: visible;
-}
-
-a {
-  display: inline-block;
-  padding: 5px;
 }
 
 .dice {
@@ -145,4 +123,20 @@ a {
   right: 0;
   top: 50%;
   transform: translate(0, -50%);
+}
+
+.score-heading-col {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.score-heading-row {
+  text-align: right;
+}
+
+.score-item {
+  text-align: center;
+}
+
+.score-row:hover {
+  background: rgba(0,0,0,.1);
 }
