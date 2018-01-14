@@ -119,14 +119,36 @@ main {
 .score-sheet {
   background: #f5f5f5;
   color: #666;
+  overflow: hidden;
   position: absolute;
   right: 0;
   top: 50%;
   transform: translate(0, -50%);
 }
 
+.score-sheet td,
+.score-sheet th {
+  padding: 0.5em 1em;
+}
+
 .score-heading-col {
   border-bottom: 1px solid #e3e3e3;
+}
+
+.score-heading-col.is-active {
+  color: #000;
+  position: relative;
+}
+
+.score-heading-col.is-active::after {
+  background: #fc3;
+  content: '';
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 .score-heading-row {

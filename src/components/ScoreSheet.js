@@ -3,18 +3,24 @@ import {connect} from 'react-redux';
 
 import {addScore} from '../reducers/scores';
 
-const mapStateToProps = state => ({scores: state.scores});
+const mapStateToProps = state => (
+  {
+    gamePlay: state.gamePlay,
+    scores: state.scores
+  }
+);
 
 const Score = ({value}) => (<td className="score-item">{value}</td>);
 
 const ScoreRow = ({name, description, score, onScoreRowClick}) => {
   return <tr
-    className="score-row" onClick={() => onScoreRowClick(name)}>
-    <th className="score-heading-row" scope="row">{name}</th>
-    {score.map((value, i) =>
-      <Score key={i} value={value} />
-    )}
-  </tr>;
+    className="score-row"
+    onClick={() => onScoreRowClick(name)}>
+      <th className="score-heading-row" scope="row">{name}</th>
+      {score.map((value, i) =>
+        <Score key={i} value={value} />
+      )}
+    </tr>;
 };
 
 const ScoreRowTotal = ({name, total}) => {
@@ -30,15 +36,23 @@ const ScoreRowTotal = ({name, total}) => {
   </tr>;
 };
 
-const ScoreSheet = ({scores, onScoreRowClick}) => {
+const ScoreHeaderColumn = ({name, isActive}) => {
+  const headerClass = isActive ? ' is-active' : '';
+
+  return <th
+    className={`score-heading-col${headerClass}`}
+    scope="col">{name}</th>
+};
+
+const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
   return <table className="score-sheet">
     <thead>
       <tr>
-        <th className="score-heading-col"></th>
-        <th className="score-heading-col" scope="col">Player 1</th>
-        <th className="score-heading-col" scope="col">Player 2</th>
-        <th className="score-heading-col" scope="col">Player 3</th>
-        <th className="score-heading-col" scope="col">Player 4</th>
+        <ScoreHeaderColumn />
+
+        {gamePlay.players.map((player, i) =>
+          <ScoreHeaderColumn key={i} {...player} />
+        )}
       </tr>
     </thead>
 
