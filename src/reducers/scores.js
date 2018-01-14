@@ -35,26 +35,23 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_SCORE:
+      const selectedItem = state.items.find(item => action.name === item.name);
+
+      if (selectedItem.score[action.activePlayer] !== null) {
+        return state;
+      }
+
+      const newScore = Object.assign([...selectedItem.score], {[action.activePlayer]: 30});
+      const updatedItem = {...selectedItem, score: newScore};
 
       return {
         ...state,
-        items: state.items.map(item => {
-          if (action.name !== item.name) {
-            return item;
-          }
-
-          return {
-            ...item,
-            score: item.score.map((s, index) => {
-              if (action.activePlayer !== index || s !== null) {
-                return s;
-              }
-
-              return 50;
-            })
-          };
-        })
-      };
+        items: state.items.map(
+          item => item.name === action.name
+            ? updatedItem
+            : item
+        )
+      }
 
     case SCORE:
       return state.total;
