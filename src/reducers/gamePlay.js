@@ -21,6 +21,7 @@ const SET_ROLL = 'SET_ROLL';
 const actionSetNextPlayer = id => ({type: SET_NEXT_PLAYER});
 
 export const setRoll = () => ({type: SET_ROLL});
+
 export const setNextPlayer = id => {
   return dispatch => {
     dispatch(actionSetNextPlayer(id));
@@ -41,8 +42,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         activePlayer: nextPlayer,
-        roll: 0,
         canRoll: true,
+        roll: 0,
         players: state.players.map(p => {
           return p.id === nextPlayer
             ? {...p, isActive: true}

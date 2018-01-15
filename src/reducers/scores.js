@@ -56,23 +56,31 @@ const checkScore = (dice, scoreName) => {
     case 'sixes':
       return getScore(foo(diceValues, 6));
 
+    case 'chance':
+      return getScore(diceValues);
+
     default:
       return 0;
   }
 };
 
-// action creator using redux thunk async action
+// action creator using thunk async action
 export const addScore = (name) => {
   return (dispatch, getState) => {
-    // get activePlayer from gamePlay slice of store
-    const {activePlayer} = getState().gamePlay;
+    const {activePlayer, roll} = getState().gamePlay;
+
+    if (roll === 0) {
+      return;
+    }
+
     const {dice} = getState();
+    const diceScore = checkScore(dice, name);
 
     // dispatch action as normal
     dispatch({
       type: ADD_SCORE,
       activePlayer,
-      dice,
+      diceScore,
       name,
     });
   };
@@ -82,27 +90,21 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_SCORE:
-      // TODO: move logic to external function
-
-      const diceScore = checkScore(action.dice, action.name);
-
-      const selectedItem = state.items.find(item => action.name === item.name);
-
-      if (selectedItem.score[action.activePlayer] !== null) {
-        return state;
-      }
-
-      const newScore = Object.assign([...selectedItem.score], {[action.activePlayer]: diceScore});
-      const updatedItem = {...selectedItem, score: newScore};
 
       return {
         ...state,
-        items: state.items.map(
-          item => item.name === action.name
-            ? updatedItem
-            : item
-        )
-      }
+        items: state.items.map(item => {
+
+          const newScore = action.name === item.name
+            ? action.diceScore
+            : null;
+
+          return {
+            ...item,
+            score: Object.assign([...item.score], {[action.activePlayer]: newScore})
+          }
+        })
+      };
 
     case SCORE:
       return state.total;
