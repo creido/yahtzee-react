@@ -25,8 +25,8 @@ export const setRoll = () => ({type: SET_ROLL});
 
 export const setNextPlayer = id => {
   return dispatch => {
-    dispatch(actionSetNextPlayer(id));
     dispatch(lockScore());
+    dispatch(actionSetNextPlayer(id));
     dispatch(resetDice());
   }
 };

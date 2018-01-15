@@ -20,7 +20,6 @@ const ADD_SCORE = 'ADD_SCORE';
 const LOCK_SCORE = 'LOCK_SCORE';
 const SCORE = 'SCORE';
 
-// const array1 = [1, 2, 3, 4];
 const getCombinedScore = (accumulator, currentValue) => accumulator + currentValue;
 
 const getDiceValues = (dice) => {
