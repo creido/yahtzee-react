@@ -1,22 +1,23 @@
 const initialState = {
   items: [
-    {name: 'ones', description: '', score: [null, null, null, null]},
-    {name: 'twos', description: '', score: [null, null, null, null]},
-    {name: 'threes', description: '', score: [null, null, null, null]},
-    {name: 'fours', description: '', score: [null, null, null, null]},
-    {name: 'fives', description: '', score: [null, null, null, null]},
-    {name: 'sixes', description: '', score: [null, null, null, null]},
-    {name: '3 of a kind', description: '', score: [null, null, null, null]},
-    {name: '4 of a kind', description: '', score: [null, null, null, null]},
-    {name: 'low straight', description: '', score: [null, null, null, null]},
-    {name: 'high straight', description: '', score: [null, null, null, null]},
-    {name: 'full house', description: '', score: [null, null, null, null]},
-    {name: 'yahtzee', description: '', score: [null, null, null, null]},
-    {name: 'chance', description: 'total of all dice', score: [null, null, null, null]},
+    {name: 'ones', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'twos', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'threes', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'fours', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'fives', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'sixes', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: '3 of a kind', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: '4 of a kind', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'low straight', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'high straight', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'full house', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'yahtzee', description: '', tempScore: null, score: [null, null, null, null]},
+    {name: 'chance', description: 'total of all dice', tempScore: null, score: [null, null, null, null]},
   ]
 };
 
 const ADD_SCORE = 'ADD_SCORE';
+const LOCK_SCORE = 'LOCK_SCORE';
 const SCORE = 'SCORE';
 
 // const array1 = [1, 2, 3, 4];
@@ -86,6 +87,17 @@ export const addScore = (name) => {
   };
 };
 
+export const lockScore = () => {
+  return (dispatch, getState) => {
+    const {activePlayer} = getState().gamePlay;
+
+    dispatch({
+      type: LOCK_SCORE,
+      activePlayer
+    });
+  };
+};
+
 export default (state = initialState, action) => {
 
   switch (action.type) {
@@ -95,13 +107,35 @@ export default (state = initialState, action) => {
         ...state,
         items: state.items.map(item => {
 
+          // prevent player replacing a previous score with the new score
+          if (item.score[action.activePlayer] !== null) {
+            return item;
+          }
+
           const newScore = action.name === item.name
             ? action.diceScore
             : null;
 
           return {
             ...item,
-            score: Object.assign([...item.score], {[action.activePlayer]: newScore})
+            tempScore: newScore
+          }
+        })
+      };
+
+    case LOCK_SCORE:
+
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.tempScore === null) {
+            return item;
+          }
+
+          return {
+            ...item,
+            score: Object.assign([...item.score], {[action.activePlayer]: item.tempScore}),
+            tempScore: null
           }
         })
       };

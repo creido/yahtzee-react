@@ -12,11 +12,14 @@ const mapStateToProps = state => (
 
 const Score = ({value}) => (<td className="score-item">{value}</td>);
 
-const ScoreRow = ({name, description, score, onScoreRowClick}) => {
+const ScoreRow = ({name, description, tempScore, score, onScoreRowClick}) => {
   return <tr
     className="score-row"
     onClick={() => onScoreRowClick(name)}>
-      <th className="score-heading-row" scope="row">{name}</th>
+      <th className="score-heading-row" scope="row">
+        {name}
+        {tempScore !== null && <span>{`(${tempScore})`}</span>}
+      </th>
       {score.map((value, i) =>
         <Score key={i} value={value} />
       )}
@@ -29,7 +32,9 @@ const ScoreRowTotal = ({name, total}) => {
     : '';
 
   return <tr>
-    <th className="score-heading-row" scope="row">Total{totalHeading}</th>
+    <th className="score-heading-row" scope="row">
+      Total{totalHeading}
+    </th>
     {total && total.map((value, i) =>
       <Score key={i} value={value} />
     )}
