@@ -11,14 +11,18 @@ const initialState = {
     {id: 3, name: 'Player 4', isActive: false},
   ],
   activePlayer: 0,
-  roll: 0,
   canRoll: true,
+  hasScored: false,
+  roll: 0,
 };
 
+const SET_HAS_SCORED = 'SET_HAS_SCORED';
 const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
 const SET_ROLL = 'SET_ROLL';
 
 const actionSetNextPlayer = id => ({type: SET_NEXT_PLAYER});
+
+export const setHasScored = () => ({type: SET_HAS_SCORED});
 
 export const setRoll = () => ({type: SET_ROLL});
 
@@ -34,6 +38,12 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
 
+    case SET_HAS_SCORED:
+      return {
+        ...state,
+        hasScored: true
+      };
+
     case SET_NEXT_PLAYER:
       // TODO: move this logic into separate function
       const nextPlayer = state.activePlayer === state.players.length - 1
@@ -42,9 +52,8 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
+        ...initialState,
         activePlayer: nextPlayer,
-        canRoll: true,
-        roll: 0,
         players: state.players.map(p => {
           return p.id === nextPlayer
             ? {...p, isActive: true}
