@@ -95,8 +95,11 @@ main {
   width: 5rem;
 }
 
-.die.yay {
-  filter: contrast(2) brightness(.8);
+.die.is-selected {
+  filter: contrast(2) brightness(0.9);
+  transform:
+    scale(0.9)
+    translate3d(0, -100%, 0);
 }
 
 .controls {

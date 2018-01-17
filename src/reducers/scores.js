@@ -30,7 +30,7 @@ const getScore = (arr) => {
   return arr.length && arr.reduce(getCombinedScore);
 };
 
-const foo = (diceValues, num) => {
+const getDiceTotal = (diceValues, num) => {
   return diceValues.filter(dieValue => dieValue === num);
 };
 
@@ -39,22 +39,22 @@ const checkScore = (dice, scoreName) => {
 
   switch (scoreName) {
     case 'ones':
-      return getScore(foo(diceValues, 1));
+      return getScore(getDiceTotal(diceValues, 1));
 
     case 'twos':
-      return getScore(foo(diceValues, 2));
+      return getScore(getDiceTotal(diceValues, 2));
 
     case 'threes':
-      return getScore(foo(diceValues, 3));
+      return getScore(getDiceTotal(diceValues, 3));
 
     case 'fours':
-      return getScore(foo(diceValues, 4));
+      return getScore(getDiceTotal(diceValues, 4));
 
     case 'fives':
-      return getScore(foo(diceValues, 5));
+      return getScore(getDiceTotal(diceValues, 5));
 
     case 'sixes':
-      return getScore(foo(diceValues, 6));
+      return getScore(getDiceTotal(diceValues, 6));
 
     case 'chance':
       return getScore(diceValues);
