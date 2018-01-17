@@ -1,4 +1,6 @@
 import {MAX_ROLLS} from '../lib/settings';
+import {setHasScored} from './gamePlay';
+
 const initialState = {
   items: [
     {name: 'ones', description: '', tempScore: null, score: [null, null, null, null]},
@@ -66,25 +68,31 @@ const checkScore = (dice, scoreName) => {
 };
 
 // action creator using thunk async action
-export const addScore = (name) => {
-  return (dispatch, getState) => {
-    const {activePlayer, roll} = getState().gamePlay;
+export const addScore = name => (dispatch, getState) => {
+  const {activePlayer, roll} = getState().gamePlay;
 
   if (roll < MAX_ROLLS) {
     return;
   }
 
+  const scores = getState().scores;
+  const scoreType = scores.items.find(item => name === item.name);
+
+  // prevent player replacing a previous score with the new score
+  if (scoreType.score[activePlayer] === null) {
     const {dice} = getState();
     const diceScore = checkScore(dice, name);
 
-    // dispatch action as normal
+    // dispatch actions as normal
     dispatch({
       type: ADD_SCORE,
       activePlayer,
       diceScore,
       name,
     });
-  };
+
+    dispatch(setHasScored());
+  }
 };
 
 export const lockScore = () => {
@@ -106,11 +114,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: state.items.map(item => {
-
-          // prevent player replacing a previous score with the new score
-          if (item.score[action.activePlayer] !== null) {
-            return item;
-          }
 
           const newScore = action.name === item.name
             ? action.diceScore
