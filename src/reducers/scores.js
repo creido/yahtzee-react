@@ -75,35 +75,37 @@ export const addScore = name => (dispatch, getState) => {
     return;
   }
 
-  const scores = getState().scores;
-  const scoreType = scores.items.find(item => name === item.name);
+  const {scores} = getState();
+  const selectedItem = scores.items.find(item => item.name === name);
 
   // prevent player replacing a previous score with the new score
-  if (scoreType.score[activePlayer] === null) {
+  if (selectedItem.score[activePlayer] === null) {
     const {dice} = getState();
     const diceScore = checkScore(dice, name);
 
     // dispatch actions as normal
     dispatch({
       type: ADD_SCORE,
-      activePlayer,
       diceScore,
-      name,
+      name
     });
 
     dispatch(setHasScored());
   }
 };
 
-export const lockScore = () => {
-  return (dispatch, getState) => {
-    const {activePlayer} = getState().gamePlay;
+export const lockScore = () => (dispatch, getState) => {
+  const {activePlayer} = getState().gamePlay;
+  const {dice, scores} = getState();
 
-    dispatch({
-      type: LOCK_SCORE,
-      activePlayer
-    });
-  };
+  const selectedItem = scores.items.find(item => item.tempScore !== null);
+  const newScore = Object.assign([...selectedItem.score], {[activePlayer]: selectedItem.tempScore});
+  const updatedItem = {...selectedItem, score: newScore, tempScore: null};
+
+  dispatch({
+    type: LOCK_SCORE,
+    updatedItem,
+  });
 };
 
 export default (state = initialState, action) => {
@@ -115,7 +117,7 @@ export default (state = initialState, action) => {
         ...state,
         items: state.items.map(item => {
 
-          const newScore = action.name === item.name
+          const newScore = item.name === action.name
             ? action.diceScore
             : null;
 
@@ -130,18 +132,12 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        items: state.items.map(item => {
-          if (item.tempScore === null) {
-            return item;
-          }
-
-          return {
-            ...item,
-            score: Object.assign([...item.score], {[action.activePlayer]: item.tempScore}),
-            tempScore: null
-          }
-        })
-      };
+        items: state.items.map(
+          item => item.name === action.updatedItem.name
+            ? action.updatedItem
+            : item
+        )
+      }
 
     case SCORE:
       return state.total;
