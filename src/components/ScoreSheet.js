@@ -10,18 +10,25 @@ const mapStateToProps = state => (
   }
 );
 
-const Score = ({value}) => (<td className="score-item">{value}</td>);
+const Score = ({isTemp, tempScore, value, isActive}) => {
+  return <td className={`score-item${isActive}`}>
+    {value}
+    <span className="temp-score">{tempScore}</span>
+  </td>
+};
 
-const ScoreRow = ({name, description, tempScore, score, onScoreRowClick}) => {
+const ScoreRow = ({name, description, tempScore, score, onScoreRowClick, activePlayer}) => {
   return <tr
     className="score-row"
     onClick={() => onScoreRowClick(name)}>
       <th className="score-heading-row" scope="row">
         {name}
-        {tempScore !== null && <span>{`(${tempScore})`}</span>}
       </th>
-      {score.map((value, i) =>
-        <Score key={i} value={value} />
+
+      {score.map((value, i) => {
+          const isActive = i === activePlayer ? ' is-active' : '';
+          return <Score key={i} tempScore={tempScore} value={value} isActive={isActive} />
+        }
       )}
     </tr>;
 };
@@ -50,34 +57,38 @@ const ScoreHeaderColumn = ({name, isActive}) => {
 };
 
 const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
-  return <table className="score-sheet">
-    <thead>
-      <tr>
-        <ScoreHeaderColumn />
+  return <div className="scores">
 
-        {gamePlay.players.map((player, i) =>
-          <ScoreHeaderColumn key={i} {...player} />
+    <table className="score-sheet">
+      <thead>
+        <tr>
+          <ScoreHeaderColumn />
+
+          {gamePlay.players.map((player, i) =>
+            <ScoreHeaderColumn key={i} {...player} />
+          )}
+
+        </tr>
+      </thead>
+
+      <tbody>
+        {scores.items.map((item, i) =>
+          <ScoreRow
+            key={i}
+            onScoreRowClick={onScoreRowClick}
+            {...item}
+            {...gamePlay} />
         )}
-      </tr>
-    </thead>
+      </tbody>
 
+      <tfoot>
+        {
+          <ScoreRowTotal {...scores} />
+        }
+      </tfoot>
 
-    <tbody>
-      {scores.items.map((item, i) =>
-        <ScoreRow
-          key={i}
-          onScoreRowClick={onScoreRowClick}
-          {...item} />
-      )}
-    </tbody>
-
-    <tfoot>
-      {
-        <ScoreRowTotal {...scores} />
-      }
-    </tfoot>
-
-  </table>
+    </table>
+  </div>
 };
 
 
