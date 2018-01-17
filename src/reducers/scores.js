@@ -1,3 +1,4 @@
+import {MAX_ROLLS} from '../lib/settings';
 const initialState = {
   items: [
     {name: 'ones', description: '', tempScore: null, score: [null, null, null, null]},
@@ -69,9 +70,9 @@ export const addScore = (name) => {
   return (dispatch, getState) => {
     const {activePlayer, roll} = getState().gamePlay;
 
-    if (roll === 0) {
-      return;
-    }
+  if (roll < MAX_ROLLS) {
+    return;
+  }
 
     const {dice} = getState();
     const diceScore = checkScore(dice, name);

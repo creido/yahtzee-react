@@ -1,3 +1,4 @@
+import {MAX_ROLLS} from '../lib/settings';
 import {lockScore} from './scores';
 import {resetDice} from './dice';
 import {showMessage} from './messages';
@@ -13,8 +14,6 @@ const initialState = {
   roll: 0,
   canRoll: true,
 };
-
-const MAX_ROLLS = 3;
 
 const SET_NEXT_PLAYER = 'SET_NEXT_PLAYER';
 const SET_ROLL = 'SET_ROLL';
