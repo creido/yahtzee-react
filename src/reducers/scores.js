@@ -5,6 +5,8 @@ import {
   UPPER_BONUS,
   UPPER_BONUS_THRESHOLD
 } from '../lib/settings';
+
+import {sumArrays} from '../helpers';
 import {setHasScored} from './gamePlay';
 
 const initialState = {
