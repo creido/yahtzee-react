@@ -88,10 +88,17 @@ export const checkScore = (dice, scoreName) => {
   }
 };
 
-// action creator using thunk async action
+const getTotals = (scoreItems, range) => {
+  return range.map(name => {
+    const e = scoreItems.find(item => item.name === name);
+    return [].concat(e.score);
+  });
+};
+
 export const addScore = name => (dispatch, getState) => {
   const {activePlayer, roll} = getState().gamePlay;
 
+  // only allow player to add a score on the final roll
   if (roll < MAX_ROLLS) {
     return;
   }
@@ -111,8 +118,34 @@ export const addScore = name => (dispatch, getState) => {
       name
     });
 
-    dispatch(setHasScored());
+    dispatch(
+      setHasScored()
+    );
   }
+};
+
+const setScores = (updatedItem) => {
+  return dispatch => {
+    dispatch({type: LOCK_SCORE, updatedItem})
+
+    return Promise.resolve('score locked');
+  };
+};
+
+const setTotals = () => {
+  return (dispatch, getState) => {
+    // get state scores again once previous score is locked
+    const {scores} = getState();
+
+    const totalsUpper = sumArrays(getTotals(scores.items, RANGE_TOTAL_UPPER));
+    const bonusesUpper = totalsUpper.map(total => total >= UPPER_BONUS_THRESHOLD
+                        ? UPPER_BONUS
+                        : 0);
+    const totalsLower = sumArrays(getTotals(scores.items, RANGE_TOTAL_LOWER));
+    const totals = sumArrays([totalsUpper, bonusesUpper, totalsLower]);
+
+    return dispatch({type: TOTAL_SCORES, totalsUpper, bonusesUpper, totalsLower, totals});
+  };
 };
 
 export const lockScore = () => (dispatch, getState) => {
@@ -123,10 +156,11 @@ export const lockScore = () => (dispatch, getState) => {
   const newScore = Object.assign([...selectedItem.score], {[activePlayer]: selectedItem.tempScore});
   const updatedItem = {...selectedItem, score: newScore, tempScore: null};
 
-  dispatch({
-    type: LOCK_SCORE,
-    updatedItem,
-  });
+  return dispatch(
+    setScores(updatedItem)
+  ).then(() =>
+    dispatch(setTotals())
+  );
 };
 
 export default (state = initialState, action) => {
@@ -150,7 +184,6 @@ export default (state = initialState, action) => {
       };
 
     case LOCK_SCORE:
-
       return {
         ...state,
         items: state.items.map(
