@@ -1,4 +1,10 @@
-import {MAX_ROLLS} from '../lib/settings';
+import {
+  MAX_ROLLS,
+  RANGE_TOTAL_LOWER,
+  RANGE_TOTAL_UPPER,
+  UPPER_BONUS,
+  UPPER_BONUS_THRESHOLD
+} from '../lib/settings';
 import {setHasScored} from './gamePlay';
 
 const initialState = {
@@ -16,12 +22,17 @@ const initialState = {
     {name: 'full house', description: '', tempScore: null, score: [null, null, null, null]},
     {name: 'yahtzee', description: '', tempScore: null, score: [null, null, null, null]},
     {name: 'chance', description: 'total of all dice', tempScore: null, score: [null, null, null, null]},
-  ]
+  ],
+  totalsUpper: [null, null, null, null],
+  bonusesUpper: [null, null, null, null],
+  totalsLower: [null, null, null, null],
+  totals: [null, null, null, null],
 };
 
 const ADD_SCORE = 'ADD_SCORE';
 const LOCK_SCORE = 'LOCK_SCORE';
 const SCORE = 'SCORE';
+const TOTAL_SCORES = 'TOTAL_SCORES';
 
 const getCombinedScore = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -145,7 +156,16 @@ export default (state = initialState, action) => {
             ? action.updatedItem
             : item
         )
-      }
+      };
+
+    case TOTAL_SCORES:
+      return {
+        ...state,
+        totalsUpper: action.totalsUpper,
+        bonusesUpper: action.bonusesUpper,
+        totalsLower: action.totalsLower,
+        totals: action.totals
+      };
 
     case SCORE:
       return state.total;
