@@ -33,11 +33,16 @@ const getScore = (arr) => {
   return arr.length && arr.reduce(getCombinedScore);
 };
 
+const getFullHouse = (diceValues) => {
+  // return true;
+  return diceValues.sort((a, b) => a > b);
+};
+
 const getDiceTotal = (diceValues, num) => {
   return diceValues.filter(dieValue => dieValue === num);
 };
 
-const checkScore = (dice, scoreName) => {
+export const checkScore = (dice, scoreName) => {
   const diceValues = getDiceValues(dice);
 
   switch (scoreName) {
@@ -58,6 +63,9 @@ const checkScore = (dice, scoreName) => {
 
     case 'sixes':
       return getScore(getDiceTotal(diceValues, 6));
+
+    case 'full house':
+      return getFullHouse(diceValues);
 
     case 'chance':
       return getScore(diceValues);
