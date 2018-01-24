@@ -38,17 +38,35 @@ const TOTAL_SCORES = 'TOTAL_SCORES';
 
 const getCombinedScore = (accumulator, currentValue) => accumulator + currentValue;
 
-const getDiceValues = (dice) => {
+const getDiceValues = dice => {
   return dice.map(die => die.value);
 };
 
-const getScore = (arr) => {
+const getScore = arr => {
   return arr.length && arr.reduce(getCombinedScore);
 };
 
-const getFullHouse = (diceValues) => {
-  // return true;
-  return diceValues.sort((a, b) => a > b);
+const getCount = arr =>
+  arr.reduce((accumulator, current) =>
+    Object.assign(accumulator, {[current]: (accumulator[current] || 0) + 1}), {}
+  );
+
+// const getDuplicates = obj => Object.values(obj).filter(a => a > 1).sort((a, b) => a > b);
+
+const getDuplicateTotals = obj => Object.values(obj).sort((a, b) => a > b);
+
+export const isFullHouse = (values) => {
+  const count = getCount(values);
+  const duplicates = getDuplicateTotals(count);
+
+  return duplicates.length && duplicates.length === 2 && duplicates[0] === 2;
+};
+
+export const isXOfAKind = (values, total) => {
+  const count = getCount(values);
+  const duplicates = getDuplicateTotals(count);
+
+  return Object.values(duplicates).indexOf(total) > -1;
 };
 
 const getDiceTotal = (diceValues, num) => {
@@ -78,7 +96,16 @@ export const checkScore = (dice, scoreName) => {
       return getScore(getDiceTotal(diceValues, 6));
 
     case 'full house':
-      return getFullHouse(diceValues);
+      return isFullHouse(diceValues) ? 25 : 0;
+
+    case '3 of a kind':
+      return isXOfAKind(diceValues, 3) ? 30 : 0;
+
+    case '4 of a kind':
+      return isXOfAKind(diceValues, 4) ? 40 : 0;
+
+    case 'yahtzee':
+      return isXOfAKind(diceValues, 5) ? 50 : 0;
 
     case 'chance':
       return getScore(diceValues);

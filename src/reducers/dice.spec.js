@@ -6,4 +6,4 @@ describe('Dice reducer', () => {
 		const result = reducer(undefined, {type: 'ANYTHING'})
 		expect(result).toBeDefined()
 	})
-})
+});
