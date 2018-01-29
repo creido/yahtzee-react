@@ -21,5 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # IDE
+*.code-workspace
 *.sublime-project
 *.sublime-workspace
