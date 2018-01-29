@@ -215,3 +215,167 @@ describe('Get correct score for yahtzee', () => {
 
 });
 
+
+describe('Get correct score for low straight', () => {
+
+  test('1. incorrect combination: 1 2 3 5 6', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 1},
+      {id: 2, isSelected: false, value: 2},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 5},
+      {id: 5, isSelected: false, value: 6},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(0);
+  });
+
+  test('2. incorrect combination: 6 6 3 6 6', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 6},
+      {id: 2, isSelected: false, value: 6},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 6},
+      {id: 5, isSelected: false, value: 6},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(0);
+  });
+
+  test('3. correct combination: 1 2 3 3 4', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 1},
+      {id: 2, isSelected: false, value: 2},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 3},
+      {id: 5, isSelected: false, value: 4},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(30);
+  });
+
+  test('4. correct combination: 4 2 1 3 1', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 4},
+      {id: 2, isSelected: false, value: 2},
+      {id: 3, isSelected: false, value: 1},
+      {id: 4, isSelected: false, value: 3},
+      {id: 5, isSelected: false, value: 1},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(30);
+  });
+
+  test('5. correct combination: 4 5 3 3 2', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 4},
+      {id: 2, isSelected: false, value: 5},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 3},
+      {id: 5, isSelected: false, value: 2},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(30);
+  });
+
+  test('5. correct combination: 6 5 3 4 2', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 6},
+      {id: 2, isSelected: false, value: 5},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 4},
+      {id: 5, isSelected: false, value: 2},
+    ];
+
+    const result = checkScore(dice, 'low straight');
+    expect(result).toBe(30);
+  });
+
+});
+
+describe('Get correct score for high straight', () => {
+
+  test('1. incorrect combination: 1 2 3 5 6', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 1},
+      {id: 2, isSelected: false, value: 2},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 5},
+      {id: 5, isSelected: false, value: 6},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(0);
+  });
+
+  test('2. incorrect combination: 2 4 6 5 6', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 2},
+      {id: 2, isSelected: false, value: 4},
+      {id: 3, isSelected: false, value: 6},
+      {id: 4, isSelected: false, value: 5},
+      {id: 5, isSelected: false, value: 6},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(0);
+  });
+
+  test('2b. incorrect combination: 1 4 6 5 6', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 1},
+      {id: 2, isSelected: false, value: 4},
+      {id: 3, isSelected: false, value: 6},
+      {id: 4, isSelected: false, value: 5},
+      {id: 5, isSelected: false, value: 6},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(0);
+  });
+
+  test('3. correct combination: 1 2 5 3 4', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 1},
+      {id: 2, isSelected: false, value: 2},
+      {id: 3, isSelected: false, value: 5},
+      {id: 4, isSelected: false, value: 3},
+      {id: 5, isSelected: false, value: 4},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(40);
+  });
+
+  test('4. correct combination: 4 5 3 6 2', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 4},
+      {id: 2, isSelected: false, value: 5},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 6},
+      {id: 5, isSelected: false, value: 2},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(40);
+  });
+
+  test('5. correct combination: 4 5 3 6 7', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 4},
+      {id: 2, isSelected: false, value: 5},
+      {id: 3, isSelected: false, value: 3},
+      {id: 4, isSelected: false, value: 6},
+      {id: 5, isSelected: false, value: 7},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(40);
+  });
+
+});

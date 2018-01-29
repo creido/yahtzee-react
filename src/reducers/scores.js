@@ -69,6 +69,35 @@ export const isXOfAKind = (values, total) => {
   return Object.values(duplicates).indexOf(total) > -1;
 };
 
+const getDifferences = arr =>
+  arr.slice().sort((a, b) => a > b).map((n, i, a) => {
+    return a[i + 1] - n || 0;
+  });
+
+const getSequenceCount = arr => {
+  let max = 0;
+  let count = 0;
+
+  arr.forEach(n => {
+    if (n === 1) {
+      count += 1;
+      max = count > max && count;
+    } else {
+      count = 0;
+    }
+  });
+
+  return max;
+};
+
+export const isSequence = (values, sequenceLength = 5) => {
+  const valuesNoDuplicates = Array.from(new Set(values))
+  const diffs = getDifferences(valuesNoDuplicates);
+  const count = getSequenceCount(diffs);
+
+  return count >= sequenceLength - 1;
+};
+
 const getDiceTotal = (diceValues, num) => {
   return diceValues.filter(dieValue => dieValue === num);
 };
@@ -106,6 +135,12 @@ export const checkScore = (dice, scoreName) => {
 
     case 'yahtzee':
       return isXOfAKind(diceValues, 5) ? 50 : 0;
+
+    case 'low straight':
+      return isSequence(diceValues, 4) ? 30 : 0;
+
+    case 'high straight':
+      return isSequence(diceValues, 5) ? 40 : 0;
 
     case 'chance':
       return getScore(diceValues);
