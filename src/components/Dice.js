@@ -9,7 +9,7 @@ const mapStateToProps = state => ({dice: state.dice});
 const Die = ({id, isSelected, value, onDieClick}) => {
   return value !== null && <li
     onClick={() => onDieClick(id)}
-    className={`die${isSelected ? ' is-selected' : ' nay'}`}>
+    className={`die${isSelected ? ' is-selected' : ' nay'}`} data-value={value}>
       {value}
   </li>
 };

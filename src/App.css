@@ -91,15 +91,25 @@ li {
 }
 
 .die {
-  background: #fff;
+  background: #fffdfa url(./assets/dice.svg) no-repeat;
+  background-size: 100% auto;
   border-radius: 0.5rem;
-  color: #000;
+  color: #444;
   height: 5rem;
   line-height: 5rem;
-  text-align: center;
+  overflow: hidden;
+  text-indent: 110%;
   transition: transform ease 0.2s;
+  white-space: nowrap;
   width: 5rem;
 }
+
+.die[data-value="1"] { background-position: 0 0; }
+.die[data-value="2"] { background-position: 0 -50px; }
+.die[data-value="3"] { background-position: 0 -100px; }
+.die[data-value="4"] { background-position: 0 -150px; }
+.die[data-value="5"] { background-position: 0 -200px; }
+.die[data-value="6"] { background-position: 0 -250px; }
 
 .die.is-selected {
   filter: contrast(2) brightness(0.9);
