@@ -18,7 +18,9 @@ const TOGGLE_DIE = 'TOGGLE_DIE';
  *
  * @return {number} Number between 1 and 6
  */
+// const rollDie = () => 6;
 const rollDie = () => Math.ceil(Math.random() * 6);
+
 
 const actionToggleDie = id => ({type: TOGGLE_DIE, payload: id});
 

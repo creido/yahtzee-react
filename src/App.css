@@ -71,9 +71,8 @@ li {
 }
 
 .message {
-  background-color: #61dafb;
-  border: 1px solid #61dafb;
   color: #fff;
+  font-size: 3rem;
   left: 50%;
   margin-left: -100px;
   position: absolute;

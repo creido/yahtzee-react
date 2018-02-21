@@ -6,13 +6,6 @@ import {toggleDie} from '../reducers/dice';
 
 const mapStateToProps = state => ({dice: state.dice});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   onDieClick(id) {
-//     console.log('handleClick');
-//     dispatch(toggleDie(id));
-//   }
-// });
-
 const Die = ({id, isSelected, value, onDieClick}) => {
   return value !== null && <li
     onClick={() => onDieClick(id)}
