@@ -43,6 +43,7 @@ th {
 
 
 main {
+  overflow: hidden;
 }
 
 ul {
@@ -111,7 +112,7 @@ li {
 .die[data-value="6"] { background-position: 0 -5em; }
 
 .die.is-selected {
-  filter: contrast(0.7) brightness(0.9) sepia(0.5);
+  filter: contrast(0.6) brightness(1.1) sepia(0.6);
   transform:
     scale(0.9);
 }
@@ -154,26 +155,31 @@ li {
 }
 
 .scores {
-  background: rgba(255, 255, 255, 0.7);
+  /* background: rgba(255, 255, 255, 0.5); */
   bottom: 0;
-  justify-content: flex-end;
   display: flex;
+  left: 0;
   overflow: auto;
   pointer-events: none;
   position: fixed;
   right: 0;
   top: 0;
-  width: 100%;
+  transform: translate3d(100%,0,0);
+  transition: transform ease 0.3s;
   z-index: 1;
-  display:none;
+}
+
+.scores.is-active {
+  transform: translate3d(0,0,0);
 }
 
 .score-sheet {
-  background: rgba(255, 255, 255, 0.2);
+  align-self: center;
+  background: rgba(255, 255, 255, 0.95);
   color: #666;
   overflow: hidden;
   margin: 0 auto;
-  max-width: 700px;
+  max-width: 500px;
   min-width: 375px;
   pointer-events: all;
   position: relative;
