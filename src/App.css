@@ -7,6 +7,7 @@
 
 html {
   font-size: 62.5%; /* 10px */
+  min-height: 100%;
   -webkit-text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -14,9 +15,11 @@ html {
 }
 
 body {
-  background-color: #5cbf02;
+  background: radial-gradient(ellipse at center, #579c3b 41%,#579c3b 41%,#527b42 100%) no-repeat;
+  background-size: cover;
   color: #fff;
   font-size: 1.4rem;
+  min-height: 100%;
 }
 
 button {
@@ -40,10 +43,6 @@ th {
 
 
 main {
-  margin: 10em auto;
-  /*padding-top: 35px;*/
-  /*width: 100%*/
-  /*display: flex;*/
 }
 
 ul {
@@ -54,19 +53,6 @@ ul,
 li {
   margin: 0;
   padding: 0;
-}
-
-
-
-.scores {
-  /*flex-basis: 40%;*/
-  overflow-y: auto;
-
-  bottom: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 30%;
 }
 
 .message {
@@ -81,31 +67,38 @@ li {
 }
 
 .dice {
+  align-content: center;
+  align-items: center;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+  flex-flow: row wrap;
+  font-size: 5em;
+  height: 100vh;
+  justify-content: center;
   list-style: none;
   margin: 0 auto;
-  padding: 0;
-  width: 80%;
+  padding: 5vw;
+  width: 100vw;
 }
 
 .die {
-  background: #fef8ef url(./assets/dice.svg) no-repeat;
+  background: #ddd url(./assets/dice.svg) no-repeat;
   background-size: 100% auto;
   border-radius: 0.1em;
   box-shadow:
     0.05em 0.05em 0.05em rgba(0,0,0,0.2),
     0.1em 0.1em 0.05em rgba(0,0,0,0.2),
     0.15em 0.15em 0.05em rgba(0,0,0,0.2),
-                -0.05em -0.05em 0.05em rgba(0,0,0,0.3) inset;
+    -0.05em -0.05em 0.05em rgba(0,0,0,0.3) inset,
+    0.05em 0.05em 0.05em rgba(255,255,255,0.3) inset;
   color: #444;
-  font-size: 7vw;
   height: 1em;
   line-height: 1em;
-  overflow: hidden;
+  margin: 0.3em;
+  position: relative;
   text-indent: 110%;
-  transition: transform ease 0.2s;
+  transition:
+    filter ease 0.2s,
+    transform ease 0.2s;
   white-space: nowrap;
   width: 1em;
 }
@@ -118,17 +111,36 @@ li {
 .die[data-value="6"] { background-position: 0 -5em; }
 
 .die.is-selected {
-  filter: contrast(2) brightness(0.9);
+  filter: contrast(0.7) brightness(0.9) sepia(0.5);
   transform:
-    scale(0.9)
-    translate3d(0, -100%, 0);
+    scale(0.9);
 }
+
+/* .die::before {
+  border-radius: 0.1em;
+  box-shadow: 0.1em 0.1em 0.1em rgba(0,0,0,0.3) inset;
+  content: '';
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: scale(1.2);
+  transition: opacity ease 0.2s;
+  width: 100%;
+  z-index: -1;
+}
+
+.die.is-selected::before {
+  opacity: 1;
+} */
 
 .controls {
   bottom: 30px;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .players {
@@ -141,11 +153,29 @@ li {
   color: #ff0;
 }
 
+.scores {
+  background: rgba(255, 255, 255, 0.7);
+  bottom: 0;
+  justify-content: flex-end;
+  display: flex;
+  overflow: auto;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  display:none;
+}
 
 .score-sheet {
-  background: #f5f5f5;
+  background: rgba(255, 255, 255, 0.2);
   color: #666;
   overflow: hidden;
+  margin: 0 auto;
+  max-width: 700px;
+  min-width: 375px;
+  pointer-events: all;
   position: relative;
   width: 100%;
   z-index: 0;
@@ -223,4 +253,15 @@ li {
 
 .can-score .score-row:hover {
   background: hsla(50, 170%, 30%, 0.2);
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }

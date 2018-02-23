@@ -12,18 +12,16 @@ import ScoreSheet from './components/ScoreSheet';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <main>
-          <Message />
-          <Dice />
-          <div className="controls">
-            <Reset />
-            <Roll />
-          </div>
-          <Players />
-          <ScoreSheet />
-        </main>
-      </div>
+      <main className="App">
+        <Message />
+        <Dice />
+        <div className="controls">
+          <Reset />
+          <Roll />
+        </div>
+        <Players />
+        <ScoreSheet />
+      </main>
     );
   }
 }

@@ -10,21 +10,19 @@ const Die = ({id, isSelected, value, onDieClick}) => {
   return value !== null && <li
     onClick={() => onDieClick(id)}
     className={`die${isSelected ? ' is-selected' : ' nay'}`} data-value={value}>
-      {value}
+      <span class="visually-hidden">{value}</span>
   </li>
 };
 
 const Dice = ({dice, onDieClick}) => (
-  <div>
-    <ul className='dice'>
-      {dice.map(die =>
-        <Die
-          key={die.id}
-          onDieClick={onDieClick}
-          {...die} />
-      )}
-    </ul>
-  </div>
+  <ul className='dice'>
+    {dice.map(die =>
+      <Die
+        key={die.id}
+        onDieClick={onDieClick}
+        {...die} />
+    )}
+  </ul>
 );
 
 // Die.propTypes = {
