@@ -41,7 +41,6 @@ th {
 
 main {
   margin: 10em auto;
-  max-width: 400px;
   /*padding-top: 35px;*/
   /*width: 100%*/
   /*display: flex;*/
@@ -86,30 +85,37 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   list-style: none;
-  margin: 0 0 5rem;
+  margin: 0 auto;
   padding: 0;
+  width: 80%;
 }
 
 .die {
-  background: #fffdfa url(./assets/dice.svg) no-repeat;
+  background: #fef8ef url(./assets/dice.svg) no-repeat;
   background-size: 100% auto;
-  border-radius: 0.5rem;
+  border-radius: 0.1em;
+  box-shadow:
+    0.05em 0.05em 0.05em rgba(0,0,0,0.2),
+    0.1em 0.1em 0.05em rgba(0,0,0,0.2),
+    0.15em 0.15em 0.05em rgba(0,0,0,0.2),
+                -0.05em -0.05em 0.05em rgba(0,0,0,0.3) inset;
   color: #444;
-  height: 5rem;
-  line-height: 5rem;
+  font-size: 7vw;
+  height: 1em;
+  line-height: 1em;
   overflow: hidden;
   text-indent: 110%;
   transition: transform ease 0.2s;
   white-space: nowrap;
-  width: 5rem;
+  width: 1em;
 }
 
 .die[data-value="1"] { background-position: 0 0; }
-.die[data-value="2"] { background-position: 0 -50px; }
-.die[data-value="3"] { background-position: 0 -100px; }
-.die[data-value="4"] { background-position: 0 -150px; }
-.die[data-value="5"] { background-position: 0 -200px; }
-.die[data-value="6"] { background-position: 0 -250px; }
+.die[data-value="2"] { background-position: 0 -1em; }
+.die[data-value="3"] { background-position: 0 -2em; }
+.die[data-value="4"] { background-position: 0 -3em; }
+.die[data-value="5"] { background-position: 0 -4em; }
+.die[data-value="6"] { background-position: 0 -5em; }
 
 .die.is-selected {
   filter: contrast(2) brightness(0.9);
