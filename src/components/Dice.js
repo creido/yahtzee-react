@@ -10,7 +10,7 @@ const Die = ({id, isSelected, value, onDieClick}) => {
   return value !== null && <li
     onClick={() => onDieClick(id)}
     className={`die${isSelected ? ' is-selected' : ' nay'}`} data-value={value}>
-      <span class="visually-hidden">{value}</span>
+      <span className="visually-hidden">{value}</span>
   </li>
 };
 
