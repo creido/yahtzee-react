@@ -212,7 +212,7 @@ const setTotals = () => {
 
 export const lockScore = () => (dispatch, getState) => {
   const {activePlayer} = getState().gamePlay;
-  const {dice, scores} = getState();
+  const {scores} = getState();
 
   const selectedItem = scores.items.find(item => item.tempScore !== null);
   const newScore = Object.assign([...selectedItem.score], {[activePlayer]: selectedItem.tempScore});

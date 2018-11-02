@@ -5,13 +5,13 @@ import {rollDice} from '../reducers/dice';
 
 const mapStateToProps = state => ({canRoll: state.gamePlay.canRoll});
 
-const Roll = ({canRoll, onRollClick}) => {
-  return <button disabled={!canRoll} onClick={() => onRollClick()}>Roll the dice</button>
+const Roll = ({canRoll, rollDice}) => {
+  return <button disabled={!canRoll} onClick={rollDice}>Roll the dice</button>
 }
 
 export default connect(
   mapStateToProps,
   {
-    onRollClick: rollDice,
+    rollDice,
   }
 )(Roll);
