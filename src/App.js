@@ -7,6 +7,7 @@ import Message from './components/Message';
 import Players from './components/Players';
 import Reset from './components/Reset';
 import Roll from './components/Roll';
+import ToggleScores from './components/ToggleScores'
 import ScoreSheet from './components/ScoreSheet';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
         <div className="controls">
           <Reset />
           <Roll />
+          <ToggleScores />
         </div>
         <Players />
         <ScoreSheet />

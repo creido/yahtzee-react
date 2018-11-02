@@ -169,6 +169,10 @@ li {
   z-index: 1;
 }
 
+.scores.is-visible {
+  transform: translate3d(0, 0, 0);
+}
+
 .scores.is-active {
   transform: translate3d(0,0,0);
 }

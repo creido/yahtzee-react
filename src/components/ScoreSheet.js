@@ -59,9 +59,10 @@ const ScoreHeaderColumn = ({name, isActive}) => {
 };
 
 const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
+  const isVisible = gamePlay.isScoreSheetVisible ? 'is-visible' : '';
   const status = gamePlay.roll === MAX_ROLLS ? ' can-score' : '';
 
-  return <div className="scores">
+  return <div className={`scores ${isVisible}`}>
 
     <table className={`score-sheet${status}`}>
       <thead>
