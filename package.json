@@ -51,7 +51,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
+    "test": "node scripts/test.js --env=jsdom --verbose",
     "dev-server": "json-server -p 8080 db.json"
   },
   "jest": {

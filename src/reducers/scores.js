@@ -171,6 +171,8 @@ export const addScore = name => (dispatch, getState) => {
   // prevent player replacing a previous score with the new score
   if (selectedItem.score[activePlayer] === null) {
     const {dice} = getState();
+    // TODO: Fix issue with low straight/high straight scoring
+    // debugger
     const diceScore = checkScore(dice, name);
 
     // dispatch actions as normal

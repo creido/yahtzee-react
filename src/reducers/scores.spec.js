@@ -1,4 +1,4 @@
-import reducer, {checkScore} from './scores'
+import reducer, {checkScore, isSequence} from './scores'
 
 describe('Scores reducer', () => {
 
@@ -298,6 +298,14 @@ describe('Get correct score for low straight', () => {
 
 });
 
+describe('isSequence utility', () => {
+  it('correctly identifies a sequence of 5', () => {
+    const arr = [1, 2, 4, 3, 5];
+    const result = isSequence(arr);
+    expect(result).toBe(true);
+  });
+});
+
 describe('Get correct score for high straight', () => {
 
   test('1. incorrect combination: 1 2 3 5 6', () => {
@@ -346,6 +354,19 @@ describe('Get correct score for high straight', () => {
       {id: 3, isSelected: false, value: 5},
       {id: 4, isSelected: false, value: 3},
       {id: 5, isSelected: false, value: 4},
+    ];
+
+    const result = checkScore(dice, 'high straight');
+    expect(result).toBe(40);
+  })
+
+  test('4. correct combination: 5 4 2 1 3', () => {
+    const dice = [
+      {id: 1, isSelected: false, value: 5},
+      {id: 2, isSelected: false, value: 4},
+      {id: 3, isSelected: false, value: 2},
+      {id: 4, isSelected: false, value: 1},
+      {id: 5, isSelected: false, value: 3},
     ];
 
     const result = checkScore(dice, 'high straight');
