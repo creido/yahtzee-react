@@ -8,7 +8,7 @@ import Players from './components/Players';
 import Reset from './components/Reset';
 import Roll from './components/Roll';
 import ToggleScores from './components/ToggleScores'
-import ScoreSheet from './components/ScoreSheet';
+import ScoreSheet from './components/ScoreSheet/ScoreSheet';
 
 class App extends Component {
   render() {

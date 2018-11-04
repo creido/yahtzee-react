@@ -1,24 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {MAX_ROLLS} from '../lib/settings';
-import {addScore} from '../reducers/scores';
+import {MAX_ROLLS} from '../../lib/settings';
+import {addScore} from '../../reducers/scores';
 
-const mapStateToProps = state => (
-  {
-    gamePlay: state.gamePlay,
-    scores: state.scores
-  }
-);
-
-const Score = ({isTemp, tempScore, value, status}) => {
+export const Score = ({tempScore, value, status}) => {
   return <td className={`score-item${status}`}>
     {value}
     <span className="temp-score">{tempScore}</span>
   </td>
 };
 
-const ScoreRow = ({name, description, tempScore, score, onScoreRowClick, activePlayer}) => {
+export const ScoreRow = ({name, description, tempScore, score, onScoreRowClick, activePlayer}) => {
+  console.log(tempScore)
   return <tr
     className="score-row"
     onClick={() => onScoreRowClick(name)}>
@@ -39,7 +33,7 @@ const ScoreRow = ({name, description, tempScore, score, onScoreRowClick, activeP
   </tr>
 };
 
-const ScoreRowTotal = ({activePlayer, name, totals}) => <tr>
+export const ScoreRowTotal = ({activePlayer, name, totals}) => <tr>
   <th className="score-heading-row" scope="row">
     {name}
   </th>
@@ -50,13 +44,21 @@ const ScoreRowTotal = ({activePlayer, name, totals}) => <tr>
   })}
 </tr>;
 
-const ScoreHeaderColumn = ({name, isActive}) => {
+export const ScoreHeaderColumn = ({name, isActive}) => {
   const status = isActive ? ' is-active' : '';
 
   return <th
     className={`score-heading-col${status}`}
     scope="col">{name}</th>
 };
+
+
+const mapStateToProps = state => (
+  {
+    gamePlay: state.gamePlay,
+    scores: state.scores
+  }
+);
 
 const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
   const isVisible = gamePlay.isScoreSheetVisible ? 'is-visible' : '';
@@ -66,35 +68,42 @@ const ScoreSheet = ({gamePlay, scores, onScoreRowClick}) => {
 
     <table className={`score-sheet${status}`}>
       <thead>
-        <tr>
-          <ScoreHeaderColumn />
+      <tr>
+        <ScoreHeaderColumn />
 
-          {gamePlay.players.map((player, i) =>
-            <ScoreHeaderColumn key={i} {...player} />
-          )}
+        {gamePlay.players.map((player, i) =>
+          <ScoreHeaderColumn key={i} {...player} />
+        )}
 
-        </tr>
+      </tr>
       </thead>
 
       <tbody>
-        {scores.items.map((item, i) =>
-          <ScoreRow
-            key={i}
-            onScoreRowClick={onScoreRowClick}
-            {...item}
-            {...gamePlay} />
-        )}
+      {scores.items.map((item, i) =>
+        <ScoreRow
+          key={i}
+          onScoreRowClick={onScoreRowClick}
+          {...item}
+          {...gamePlay} />
+      )}
       </tbody>
 
       <tfoot>
-        {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total upper'} totals={scores.totalsUpper} /> }
-        {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'bonus'} totals={scores.bonusesUpper} /> }
-        {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total lower'} totals={scores.totalsLower} /> }
-        {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'TOTAL'} totals={scores.totals} /> }
+      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total upper'} totals={scores.totalsUpper} /> }
+      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'bonus'} totals={scores.bonusesUpper} /> }
+      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total lower'} totals={scores.totalsLower} /> }
+      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'TOTAL'} totals={scores.totals} /> }
       </tfoot>
 
     </table>
   </div>
+
+
+/*
+  return <div className={`scores ${isVisible}`}>
+    <ScoreTable {...gamePlay} {...scores} />
+  </div>
+*/
 };
 
 export default connect(
