@@ -5,7 +5,9 @@ import Score from './Score';
 class ScoreRow extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return (nextProps !== this.props);
+    return (nextProps.tempScore !== this.props.tempScore ||
+      nextProps.score !== this.props.score ||
+      nextProps.activePlayer !== this.props.activePlayer);
   }
 
   render() {
@@ -21,13 +23,13 @@ class ScoreRow extends Component {
       </th>
 
       {score.map((value, i) => {
-          let status = value === null ? ' can-score' : '';
+          let status = value === null ? 'can-score' : '';
 
           if (i === activePlayer) {
             status += ' is-active';
           }
 
-          return <Score key={i} tempScore={tempScore} value={value} status={status}/>
+          return <Score key={i} tempScore={tempScore} value={value} status={status} />
         }
       )}
     </tr>

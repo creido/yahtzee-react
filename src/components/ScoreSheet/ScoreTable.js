@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-// import {ScoreRowTotal} from './ScoreSheet';
 import ScoreHeaderColumn from './ScoreHeaderColumn';
 import ScoreRow from './ScoreRow';
 import ScoreRowTotal from './ScoreRowTotal';
@@ -11,7 +10,7 @@ import {MAX_ROLLS} from '../../lib/settings';
 class ScoreTable extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return (nextProps !== this.props);
+    return (nextProps.scores !== this.props.scores);
   }
 
   render() {
@@ -20,31 +19,31 @@ class ScoreTable extends Component {
 
     return <table className={`score-sheet ${canScore}`}>
       <thead>
-      <tr>
-        <ScoreHeaderColumn />
+        <tr>
+          <ScoreHeaderColumn />
 
-        {gamePlay.players.map((player, i) =>
-          <ScoreHeaderColumn key={i} {...player} />
-        )}
+          {gamePlay.players.map((player, i) =>
+            <ScoreHeaderColumn key={i} {...player} />
+          )}
 
-      </tr>
+        </tr>
       </thead>
 
       <tbody>
-      {scores.items.map((item, i) =>
-        <ScoreRow
-          key={i}
-          onScoreRowClick={onScoreRowClick}
-          activePlayer={gamePlay.activePlayer}
-          {...item} />
-      )}
+        {scores.items.map((item, i) =>
+          <ScoreRow
+            key={i}
+            activePlayer={gamePlay.activePlayer}
+            onScoreRowClick={onScoreRowClick}
+            {...item} />
+        )}
       </tbody>
 
       <tfoot>
-      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total upper'} totals={scores.totalsUpper} /> }
-      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'bonus'} totals={scores.bonusesUpper} /> }
-      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total lower'} totals={scores.totalsLower} /> }
-      {<ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'TOTAL'} totals={scores.totals} /> }
+        <ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total upper'} totals={scores.totalsUpper} />
+        <ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'bonus'} totals={scores.bonusesUpper} />
+        <ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'total lower'} totals={scores.totalsLower} />
+        <ScoreRowTotal activePlayer={gamePlay.activePlayer} name={'TOTAL'} totals={scores.totals} />
       </tfoot>
 
     </table>

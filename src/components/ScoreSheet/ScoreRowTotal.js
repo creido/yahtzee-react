@@ -7,7 +7,7 @@ export const ScoreRowTotal = ({activePlayer, name, totals}) => <tr>
     {name}
   </th>
   {totals && totals.map((value, i) => {
-    const status = i === activePlayer ? ' score-total is-active' : ' score-total';
+    const status = i === activePlayer ? 'score-total is-active' : ' score-total';
 
     return <Score key={i} value={value} status={status}/>
   })}
