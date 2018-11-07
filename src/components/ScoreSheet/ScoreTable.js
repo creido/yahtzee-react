@@ -10,11 +10,12 @@ import {MAX_ROLLS} from '../../lib/settings';
 class ScoreTable extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return (nextProps.scores !== this.props.scores);
+    return (nextProps.scores !== this.props.scores ||
+      nextProps.gamePlay.roll !== this.props.gamePlay.roll);
   }
 
   render() {
-    const {gamePlay, scores, onScoreRowClick} = this.props;
+    const {gamePlay, scores} = this.props;
     const canScore = gamePlay.roll === MAX_ROLLS ? 'can-score' : '';
 
     return <table className={`score-sheet ${canScore}`}>
@@ -34,7 +35,6 @@ class ScoreTable extends Component {
           <ScoreRow
             key={i}
             activePlayer={gamePlay.activePlayer}
-            onScoreRowClick={onScoreRowClick}
             {...item} />
         )}
       </tbody>
@@ -57,9 +57,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(
-  mapStateToProps,
-  {
-    onScoreRowClick: addScore
-  }
-)(ScoreTable);
+export default connect(mapStateToProps)(ScoreTable);
